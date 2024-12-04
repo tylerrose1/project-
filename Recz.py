@@ -118,7 +118,6 @@ years_running_weight = 0.1
 df_film_ohe['years_running'] *= years_running_weight
 
 
-
 # Updated process_user_input to handle missing 'years_running' without weighing heavily
 def process_user_input(user_input):
     # Parse genres

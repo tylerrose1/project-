@@ -5,7 +5,7 @@ app = Flask(__name__, static_folder='assets')
 # Route to serve the HTML file
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index_test.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

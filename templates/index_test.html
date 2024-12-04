@@ -77,7 +77,7 @@
                     </ul>
 
                     <div class="navbar-buttons mbr-section-btn"><a class="btn btn-info display-4"
-                            href="index.html#form5-m">Join Waitlist</a></div>
+                            href="index.html#form5-m">Take Quiz</a></div>
                 </div>
             </div>
         </nav>
@@ -99,8 +99,8 @@
                     <p class="mbr-text mbr-fonts-style display-5"> 
                         Let's Get You To The Top
                         <br></p>
-                    <div class="mbr-section-btn mt-3"><a class="btn btn-info display-4" href="index.html#form5-m">JOIN
-                            WAITLIST</a></div>
+                    <div class="mbr-section-btn mt-3"><a class="btn btn-info display-4" href="index.html#form5-m">
+                        Take Our Quiz</a></div>
                 </div>
             </div>
         </div>
@@ -239,21 +239,77 @@
 
             </div>
 
-      <!-- Embed Typeform -->
-      <section data-bs-version="5.1" class="form5 cid-u2Y2SR5ISK" id="form5-m">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 mx-auto">
-                    <div data-tf-live="01JABFD7ARCPYCGVT6BW4WJ9CS"></div>
-                    <script src="//embed.typeform.com/next/embed.js"></script>
+            <section id="quiz-section" class="mbr-section">
+                <div class="container">
+                    <h3 class="mbr-section-title mb-4 display-2" style="color: #333; font-family: 'Ubuntu', sans-serif;"> Take the Quiz for Festival Recommendations</h3>
+                    <form id="recommendationForm">
+                        <div class="form-group">
+                            <label for="location" style="color: black; font-family: 'Ubuntu', sans-serif;">Where are you located?:</label>
+                            <input type="text" id="location" name="location" placeholder="e.g., New York, USA" required><br>
+            
+                            
+                            <label for="style" style="color: black; font-family: 'Ubuntu', sans-serif;" >What style is your film in (documentary, episodic, etc)?:</label>
+                            <input type="text" id="style" name="style" placeholder="e.g., Documentary, Narrative" required><br>
+            
+                            <label for="length" style="color: black; font-family: 'Ubuntu', sans-serif;">Length:</label>
+                            <select id="length" name="length" required>
+                                <option value="short">Short</option>
+                                <option value="feature">Feature</option>
+                            </select><br>
+            
+                            <label for="genre" style="color: black; font-family: 'Ubuntu', sans-serif;">Genre:</label>
+                            <input type="text" id="genre" name="genre" placeholder="e.g., Drama, Comedy, Horror" required><br>
+            
+                            <label for="focus" style="color: black; font-family: 'Ubuntu', sans-serif;">Focus:</label>
+                            <input type="text" id="focus" name="focus" placeholder="e.g., International, Independent, Food Focused"><br>
+            
+                            <label for="filmmaker_type" style="color: black; font-family: 'Ubuntu', sans-serif;">Type:</label>
+                            <input type="text" id="filmmaker_type" name="filmmaker_type" placeholder="e.g., LGBTQ, Environmental, Women Filmmakers"><br>
+            
+                            <label for="opening_date" style="color: black; font-family: 'Ubuntu', sans-serif;">What is the earliest date that you want to start your festival submissions by?:</label>
+                            <input type="date" id="opening_date" name="opening_date"><br>
+            
+                            <label for="regular_date" style="color: black; font-family: 'Ubuntu', sans-serif;">What is the mid date you are willing to submit by?</label>
+                            <input type="date" id="regular_date" name="regular_date"><br>
+            
+                            <label for="final_date" style="color: black; font-family: 'Ubuntu', sans-serif;">What is the final date that you want to end your festival submissions by?:</label>
+                            <input type="date" id="final_date" name="final_date"><br>
+            
+                            <label for="previously_distributed_premiere" style="color: black; font-family: 'Ubuntu', sans-serif;">Was your film previously premiered?:</label>
+                            <select id="previously_distributed_premiere" name="previously_distributed_premiere" required>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select><br>
+            
+                            <label for="completion_date" style="color: black; font-family: 'Ubuntu', sans-serif;">Film Completion Date:</label>
+                            <input type="date" id="completion_date" name="completion_date"><br>
+            
+                            <label for="file_rule" style="color: black; font-family: 'Ubuntu', sans-serif;">Do you have a digital file (DCP, Online Screener, etc)?:</label>
+                            <select id="file_rule" name="file_rule" required>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select><br>
+            
+                            <label for="qualifying" style="color: black; font-family: 'Ubuntu', sans-serif;">Do you want a qualifying festival (e.g., Academy, BAFTA)?:</label>
+                            <select id="qualifying" name="qualifying" required>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select><br>
+            
+                            <label for="years_running" style="color: black; font-family: 'Ubuntu', sans-serif;">Do you have a specific amount of years you wish the festival to be running? (optional):</label>
+                            <input type="number" id="years_running" name="years_running" placeholder="e.g., 2"><br>
+            
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                        </div>
+                    </form>
+            
+                    <!-- Section to display recommendations -->
+                    <div id="recommendations" class="mt-4">
+                        <!-- Recommendations will appear here -->
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section data-bs-version="5.1" class="footer7 cid-u2Ymhoy2Q2" once="footers" id="footer7-p">
-
- 
+            </section>
+            
 
         <div class="container">
             <div class="media-container-row align-center mbr-white">
@@ -278,6 +334,112 @@
     <input name="animation" type="hidden">
 </body>
 
+<!-- <script>
+    document.getElementById('recommendationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form from refreshing the page
+    
+        // Collect user input from the form
+        const location = document.getElementById('location').value;
+        const style = document.getElementById('style').value;
+        const length = document.getElementById('length').value;
+        const genre = document.getElementById('genre').value;
+        const focus = document.getElementById('focus').value;
+        const filmmaker_type = document.getElementById('filmmaker_type').value;
+        const opening_date = document.getElementById('opening_date').value;
+        const regular_date = document.getElementById('regular_date').value;
+        const final_date = document.getElementById('final_date').value;
+        const previously_distributed_premiere = document.getElementById('previously_distributed_premiere').value;
+        const completion_date = document.getElementById('completion_date').value;
+        const file_rule = document.getElementById('file_rule').value;
+        const qualifying = document.getElementById('qualifying').value;
+        const years_running = document.getElementById('years_running').value || 0;
+    
+        // Prepare the data to send
+        const data = {
+            location: location,
+            style: style,
+            length: length,
+            genre: genre,
+            focus: focus,
+            filmmaker_type: filmmaker_type,
+            opening_date: opening_date,
+            regular_date: regular_date,
+            final_date: final_date,
+            previously_distributed_premiere: previously_distributed_premiere,
+            completion_date: completion_date,
+            file_rule: file_rule,
+            qualifying: qualifying,
+            years_running: years_running
+        };
+    
+        // Send data to the backend using fetch
+        fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(recommendations => {
+            // Clear previous recommendations
+            document.getElementById('recommendations').innerHTML = '';
+    
+            // Display recommendations in a nice format
+            recommendations.forEach(festival => {
+                const festivalElement = document.createElement('div');
+                festivalElement.innerHTML = `
+                    <h4>${festival.name}</h4>
+                    <p><strong>Location:</strong> ${festival.location}</p>
+                    <p><strong>Similarity Score:</strong> ${festival.similarity_score.toFixed(2)}</p>
+                `;
+                document.getElementById('recommendations').appendChild(festivalElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    </script> -->
+
+<script>
+        document.getElementById('recommendationForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the form from refreshing the page
+
+        // Collect user input from the form
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+    
+        // Send data to the backend using fetch
+        fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(recommendations => {
+            // Clear previous recommendations
+            document.getElementById('recommendations').innerHTML = '';
+    
+            // Display recommendations in a nice format
+            recommendations.forEach(festival => {
+                const festivalElement = document.createElement('div');
+                festivalElement.innerHTML = `
+                    <h4>${festival.name}</h4>
+                    <p><strong>Location:</strong> ${festival.location}</p>
+                    <p><strong>Similarity Score:</strong> ${festival.similarity_score.toFixed(2)}</p>
+                `;
+                document.getElementById('recommendations').appendChild(festivalElement);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    </script>
 </html>
-
-

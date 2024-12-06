@@ -10,7 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from datetime import datetime
 
 # #df_film = pd.read_excel('/Users/tylerknohl/Desktop/Hiike_Projects/data/Fixed Sheet Test.xlsx')
-df_film = pd.read_csv('/Users/tylerknohl/Desktop/Hiike_Projects/data/Festival Data - Sheet1.csv')
+df_film = pd.read_csv('/Users/tylerknohl/Desktop/DS4300/Hiike-Website-main/aws_project2/Festival Data - Sheet1.csv')
 
 # Function to onehotencode the categorical variables 
 def oneHotEncode(df, columns):

@@ -107,7 +107,7 @@ def convert_date_to_numeric(date_str):
         return (date_obj - datetime.now()).days
     except Exception:
         return 0
-    
+
 
 # Normalize 'years_running' to a range between 0 and 1, then scale down its impact to avoid it dominating the cosine similarity
 df_film_ohe['years_running'] = pd.to_numeric(df_film_ohe['years_running'], errors='coerce').fillna(0)
@@ -217,16 +217,16 @@ def calculate_similarity(user_vector, dataframe):
 
 # Example user input (without 'years_running' to see how it behaves)
 user_vector = process_user_input({
-    "genre": "Comedy, Horror, Thriller, Fantasy",
-    "length": "short",
-    "dcp": "yes",
+    "genre": "Comedy",
+    "length": "feature",
+    "dcp": "no",
     "online_upload": "yes",
     "qualifying_": "yes",
     "premiere_city": "yes",
     "premiere_state": "no",
     "premiere_national": "no",
-    "premiere_world": "yes",
-    "style": "Documentary, Animation",
+    "premiere_world": "no",
+    "style": "Narrative",
     "filmmaker_type": "BIPOC, Female",
     "festival_focus": "international",
     "opening_date": "2024-01-01",

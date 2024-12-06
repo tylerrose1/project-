@@ -23,7 +23,6 @@ merged_df = films_accepted_df.merge(
     how='inner'
 )
 
-
 # Makes sure accepted is 1 and 0 for yes and no
 merged_df['Accepted'] = merged_df['Accepted'].apply(lambda x: 1 if x == 'Yes' else 0)
 
@@ -87,7 +86,72 @@ y = df_film_ohe['Accepted']  # Target variable
 # Split into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
+# Step 1: Identify date columns
+date_columns = ['Opening Date', 'Early Deadline', 'Regular Deadline', 'Final Deadline']
 
+# Drop date columns (if not required for training)
+X_train = X_train.drop(columns=date_columns, errors='ignore')
+X_test = X_test.drop(columns=date_columns, errors='ignore')
+
+# Alternatively, convert dates to numerical values (uncomment if needed)
+# for col in date_columns:
+#     X_train[col] = (X_train[col] - X_train[col].min()).dt.days
+#     X_test[col] = (X_test[col] - X_test[col].min()).dt.days
+
+# Step 2: Ensure only numerical data
+X_train = X_train.select_dtypes(include=[np.number])
+X_test = X_test.select_dtypes(include=[np.number])
+
+# Step 3: Handle missing values in numerical columns
+X_train = X_train.fillna(0)  # Replace NaN with 0 (or use other imputation strategy)
+X_test = X_test.fillna(0)
+
+# Step 4: Normalize numerical columns using MinMaxScaler
+scaler = MinMaxScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Initialize the model
+model = RandomForestClassifier(random_state=42)
+
+# Train the model
+model.fit(X_train, y_train)
+
+# Predict on test set
+y_pred = model.predict(X_test)
+
+# Evaluate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy}")
+
+# Classification report
+print("Classification Report:")
+print(classification_report(y_test, y_pred))
+
+feature_importances = model.feature_importances_
+print("Feature Importances:")
+print(feature_importances)
+
+# Predict on new data (example)
+new_data = X_test[:5]  # Replace with actual new data
+predictions = model.predict(new_data)
+print("Predictions for new data:")
+print(predictions)
+
+import matplotlib.pyplot as plt
+
+# Sort features by importance
+feature_names = X.columns
+importances = model.feature_importances_
+indices = np.argsort(importances)[::-1]
+
+# Plot top features
+plt.figure(figsize=(12, 8))
+plt.title("Feature Importances")
+plt.bar(range(20), importances[indices[:20]], align="center")
+plt.xticks(range(20), feature_names[indices[:20]], rotation=90)
+plt.tight_layout()
+plt.show()
 
 # features that are relevant to model, would be genre, length, filmmaker type, 
 # festival focus, style,  if it is was a short or feature, premiere. the other information 

@@ -1,33 +1,35 @@
 #hiike_db : admin username / password: Data123!!
-
 import mysql.connector
-from mysql.connector import Error
 
-# Database configuration
-db_config = {
-    'host': 'filmquiz.cv0mcauishmo.us-east-2.rds.amazonaws.com',
-    'user': 'admin',
-    'password': 'Data123!!',
-    'database': 'filmquiz'
-}
+# Establish connection to MySQL
+db_connection = mysql.connector.connect(
+    host="localhost",  # Replace with your MySQL server host
+    user="your_username",  # Your MySQL username
+    password="your_password",  # Your MySQL password
+    database="my_database"  # The database you created
+)
 
-try:
-    # Establish a connection
-    conn = mysql.connector.connect(**db_config)
-    if conn.is_connected():
-        print("Successfully connected to the database!")
+# Create a cursor object
+cursor = db_connection.cursor()
 
-    # Your database operations here
-    cursor = conn.cursor()
-    cursor.execute("SHOW TABLES;")
-    for table in cursor.fetchall():
-        print(table)
+# Example data to insert
+name = "John Doe"
+age = 30
+email = "john.doe@example.com"
 
-except Error as e:
-    print(f"Error while connecting to MySQL: {e}")
+# SQL query to insert data
+insert_query = "INSERT INTO my_table (name, age, email) VALUES (%s, %s, %s)"
+values = (name, age, email)
 
-finally:
-    if 'conn' in locals() and conn.is_connected():
-        cursor.close()
-        conn.close()
-        print("Database connection closed.")
+# Execute the query
+cursor.execute(insert_query, values)
+
+# Commit the transaction
+db_connection.commit()
+
+# Print success message
+print(f"Data inserted with ID: {cursor.lastrowid}")
+
+# Close the connection
+cursor.close()
+db_connection.close()

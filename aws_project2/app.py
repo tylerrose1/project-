@@ -3,6 +3,12 @@ from flask import Flask, render_template, request, jsonify
 from Recz import process_user_input, calculate_similarity, df_film_ohe
 import pandas as pd
 from datetime import datetime
+import boto3
+
+
+# Initialize Lambda client
+lambda_client = boto3.client('lambda', region_name='your-region')  # Replace 'your-region' with your AWS region
+
 
 # RDS Database Configuration
 db_config = {

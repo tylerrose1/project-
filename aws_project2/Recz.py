@@ -131,13 +131,13 @@ def process_user_input(user_input):
     length_one_hot = {'length_short': 1 if user_input['length'] == 'short' else 0, 'length_feature': 1 if user_input['length'] == 'feature' else 0}
 
     # Parse yes/no fields (for DCP, online upload, qualifying, premiere requirements)
-    dcp = 1 if user_input['dcp'] == 'yes' else 0
-    online_upload = 1 if user_input['online_upload'] == 'yes' else 0
-    qualifying = 1 if user_input['qualifying_'] == 'yes' else 0
-    premiere_city = 1 if user_input['premiere_city'] == 'yes' else 0
-    premiere_state = 1 if user_input['premiere_state'] == 'yes' else 0
-    premiere_national = 1 if user_input['premiere_national'] == 'yes' else 0
-    premiere_world = 1 if user_input['premiere_world'] == 'yes' else 0
+    dcp = 1 if user_input['dcp'] else 0
+    online_upload = 1 if user_input['online_upload'] else 0
+    qualifying = 1 if user_input['qualifying'] else 0
+    premiere_city = 1 if user_input['premiere_city'] else 0
+    premiere_state = 1 if user_input['premiere_state'] else 0
+    premiere_national = 1 if user_input['premiere_national'] else 0
+    premiere_world = 1 if user_input['premiere_world'] else 0
 
     # Parse style
     style = user_input['style'].split(', ')
@@ -154,25 +154,19 @@ def process_user_input(user_input):
     # Convert dates to numeric (days from today)
     opening_date_numeric = convert_date_to_numeric(user_input.get('opening_date'))
     early_deadline_numeric = convert_date_to_numeric(user_input.get('early_deadline'))
-    regular_deadline_numeric = convert_date_to_numeric(user_input.get('regular_deadline'))
-    final_deadline_numeric = convert_date_to_numeric(user_input.get('final_deadline'))
+    regular_deadline_numeric = convert_date_to_numeric(user_input.get('regular_date'))
+    final_deadline_numeric = convert_date_to_numeric(user_input.get('final_date'))
 
-    # Handle 'years_running' if provided, or exclude it
-    years_running = user_input.get('years_running', None)
-    if years_running is not None:
-        years_running = float(years_running)
-        years_running = (years_running - df_film['years_running'].min()) / (df_film['years_running'].max() - df_film['years_running'].min())
-        years_running *= years_running_weight
-    else:
-        years_running = None
-
-    # Create the user vector with all values
+    # Handle 'years_running'
+    years_running = user_input.get('years_running', 0)
+    years_running_normalized = (years_running - df_film_ohe['years_running'].min()) / \
+                               (df_film_ohe['years_running'].max() - df_film_ohe['years_running'].min())
     user_vector = {
         **genres_one_hot,
         **length_one_hot,
         'file_type:_dcp': dcp,
         'file_type:_online_screener': online_upload,
-        'qualifying_': qualifying,
+        'qualifying': qualifying,
         'city_premiere_necessary': premiere_city,
         'state_premiere_necessary': premiere_state,
         'national_premiere_necessary': premiere_national,
@@ -184,17 +178,14 @@ def process_user_input(user_input):
         'early_deadline': early_deadline_numeric,
         'regular_deadline': regular_deadline_numeric,
         'final_deadline': final_deadline_numeric,
+        'years_running': years_running_normalized * 0.1,  # Apply weight
     }
 
-    # Add 'years_running' to the user vector only if it's provided
-    if years_running is not None:
-        user_vector['years_running'] = years_running
-
-    # Dynamically add missing columns from the DataFrame
+    # Dynamically add missing columns
     for col in df_film_ohe.columns:
         if col not in user_vector:
-            user_vector[col] = 0  # Set missing features to 0
-    
+            user_vector[col] = 0
+
     return user_vector
 
 # Function to calculate cosine similarity, excluding non-numeric columns like 'name', 'location'
@@ -224,7 +215,7 @@ user_vector = process_user_input({
     "length": "short",
     "dcp": "yes",
     "online_upload": "yes",
-    "qualifying_": "yes",
+    "qualifying": "yes",
     "premiere_city": "yes",
     "premiere_state": "no",
     "premiere_national": "no",

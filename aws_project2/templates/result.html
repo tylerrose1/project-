@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Film Festival Recommendation Result</title>
+</head>
+<body>
+    <h1>Film Festival Recommendation Result</h1>
+
+    {% if prediction %}
+        <h2>Top Recommended Festivals:</h2>
+        <ul>
+            {% for festival in prediction %}
+                <li>
+                    <strong>{{ festival.name }}</strong> - {{ festival.location }} <br>
+                    Similarity Score: {{festival.similarity_score }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recommendations available at this time.</p>
+    {% endif %}
+
+    <a href="/">Go back</a>
+</body>
+</html>

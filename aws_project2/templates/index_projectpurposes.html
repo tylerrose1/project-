@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Festival Predictor</title>
+</head>
+<body>
+    <h1>Submit Your Festival Preferences</h1>
+    <form method="POST" action="/predict">
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" required><br><br>
+        
+        <label for="length">Length:</label>
+        <input type="text" id="length" name="length" required><br><br>
+        
+        <label for="filmmaker_type">Filmmaker Type:</label>
+        <input type="text" id="filmmaker_type" name="filmmaker_type" required><br><br>
+        
+        <label for="festival_focus">Festival Focus:</label>
+        <input type="text" id="festival_focus" name="festival_focus" required><br><br>
+        
+        <label for="style">Style:</label>
+        <input type="text" id="style" name="style" required><br><br>
+        
+        <label for="opening_date">Opening Date:</label>
+        <input type="date" id="opening_date" name="opening_date" required><br><br>
+        
+        <label for="regular_date">Regular Date:</label>
+        <input type="date" id="regular_date" name="regular_date" required><br><br>
+        
+        <label for="final_date">Final Date:</label>
+        <input type="date" id="final_date" name="final_date" required><br><br>
+        
+        <label for="completion_date">Completion Date:</label>
+        <input type="date" id="completion_date" name="completion_date" required><br><br>
+        
+        <label for="dcp">File Rule:</label>
+        <select id="dcp" name="dcp" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+        
+        <label for="qualifying">Qualifying:</label>
+        <select id="qualifying" name="qualifying" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+<!--         
+        <label for="years_running">Years Running:</label>
+        <input type="number" id="years_running" name="years_running" required><br><br> -->
+
+        <form method="POST" action="/predict">
+            <!-- Existing fields -->
+            
+            <!-- Add fields expected by Recz.py -->
+            <label for="online_upload">Online Upload:</label>
+            <select id="online_upload" name="online_upload" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br>
+        
+            <label for="premiere_city">City Premiere Necessary:</label>
+            <select id="premiere_city" name="premiere_city" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br>
+        
+            <label for="premiere_state">State Premiere Necessary:</label>
+            <select id="premiere_state" name="premiere_state" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br>
+        
+            <label for="premiere_national">National Premiere Necessary:</label>
+            <select id="premiere_national" name="premiere_national" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br>
+        
+            <label for="premiere_world">World Premiere Necessary:</label>
+            <select id="premiere_world" name="premiere_world" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br>
+        
+            <button type="submit">Submit</button>
+        </form>        
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

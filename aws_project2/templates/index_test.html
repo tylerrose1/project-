@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -333,75 +333,6 @@
 
     <input name="animation" type="hidden">
 </body>
-
-<!-- <script>
-    document.getElementById('recommendationForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form from refreshing the page
-    
-        // Collect user input from the form
-        const location = document.getElementById('location').value;
-        const style = document.getElementById('style').value;
-        const length = document.getElementById('length').value;
-        const genre = document.getElementById('genre').value;
-        const focus = document.getElementById('focus').value;
-        const filmmaker_type = document.getElementById('filmmaker_type').value;
-        const opening_date = document.getElementById('opening_date').value;
-        const regular_date = document.getElementById('regular_date').value;
-        const final_date = document.getElementById('final_date').value;
-        const previously_distributed_premiere = document.getElementById('previously_distributed_premiere').value;
-        const completion_date = document.getElementById('completion_date').value;
-        const file_rule = document.getElementById('file_rule').value;
-        const qualifying = document.getElementById('qualifying').value;
-        const years_running = document.getElementById('years_running').value || 0;
-    
-        // Prepare the data to send
-        const data = {
-            location: location,
-            style: style,
-            length: length,
-            genre: genre,
-            focus: focus,
-            filmmaker_type: filmmaker_type,
-            opening_date: opening_date,
-            regular_date: regular_date,
-            final_date: final_date,
-            previously_distributed_premiere: previously_distributed_premiere,
-            completion_date: completion_date,
-            file_rule: file_rule,
-            qualifying: qualifying,
-            years_running: years_running
-        };
-    
-        // Send data to the backend using fetch
-        fetch('/predict', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(recommendations => {
-            // Clear previous recommendations
-            document.getElementById('recommendations').innerHTML = '';
-    
-            // Display recommendations in a nice format
-            recommendations.forEach(festival => {
-                const festivalElement = document.createElement('div');
-                festivalElement.innerHTML = `
-                    <h4>${festival.name}</h4>
-                    <p><strong>Location:</strong> ${festival.location}</p>
-                    <p><strong>Similarity Score:</strong> ${festival.similarity_score.toFixed(2)}</p>
-                `;
-                document.getElementById('recommendations').appendChild(festivalElement);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
-    </script> -->
-
 <script>
         document.getElementById('recommendationForm').addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent the form from refreshing the page
@@ -443,3 +374,4 @@
     });
     </script>
 </html>
+

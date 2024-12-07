@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,4 +23,177 @@
 
     <a href="/">Go back</a>
 </body>
-</html>
+</html> -->
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Film Festival Recommendation Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1>Film Festival Recommendation Result</h1>
+
+    {% if prediction %}
+        <h2>Top Recommended Festivals:</h2>
+        <ul>
+            {% for festival in prediction %}
+                <li>
+                    <img src="{{ festival.image_url }}" alt="{{ festival.name }} image" onerror="this.style.display='none'">
+                    <strong>{{ festival.name }}</strong> - {{ festival.location }} <br>
+                    Similarity Score: {{ festival.similarity_score }} <br>
+                    Years Running: {{ festival.years_running }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recommendations available at this time.</p>
+    {% endif %}
+
+    <a href="/">Go back</a>
+</body>
+</html> -->
+
+
+<body>
+    <h1>Film Festival Recommendation Result</h1>
+
+    <div id="results">
+        <p>Loading recommendations...</p>
+    </div>
+
+    <meta charset="UTF-8">
+    <title>Film Festival Recommendation Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1>Film Festival Recommendation Result</h1>
+
+    {% if prediction %}
+        <h2>Top Recommended Festivals:</h2>
+        <ul>
+            {% for festival in prediction %}
+                <li>
+                    <img src="{{ festival.image_url }}" alt="{{ festival.name }} image" onerror="this.style.display='none'">
+                    <strong>{{ festival.name }}</strong> - {{ festival.location }} <br>
+                    Similarity Score: {{ festival.similarity_score }} <br>
+                    Years Running: {{ festival.years_running }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No recommendations available at this time.</p>
+    {% endif %}
+
+    <a href="/">Go back</a>
+
+    <script>
+        // Example endpoint, replace with your actual API Gateway endpoint
+        const apiEndpoint = "https://lmwz5lkeoj.execute-api.us-east-2.amazonaws.com/default/predict_recommendations";
+
+        // Fetch data dynamically
+        fetch(apiEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                genre: "Drama",
+                length: "Short",
+                filmmaker_type: "Independent",
+                festival_focus: "Global",
+                style: "Documentary",
+                opening_date: "2024-01-01",
+                regular_date: "2024-02-01",
+                final_date: "2024-03-01",
+                completion_date: "2023-12-01",
+                dcp: true,
+                online_upload: true,
+                qualifying: true,
+                premiere_city: false,
+                premiere_state: false,
+                premiere_national: false,
+                premiere_world: true,
+                years_running: 5,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Render the data into the results section
+                const resultsDiv = document.getElementById("results");
+                resultsDiv.innerHTML = "";
+
+                if (data && data.predictions && data.predictions.length > 0) {
+                    const ul = document.createElement("ul");
+                    data.predictions.forEach((festival) => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `
+                            <img src="${festival.image_url}" alt="${festival.name} image" onerror="this.style.display='none'">
+                            <strong>${festival.name}</strong> - ${festival.location} <br>
+                            Similarity Score: ${festival.similarity_score} <br>
+                            Years Running: ${festival.years_running}
+                        `;
+                        ul.appendChild(li);
+                    });
+                    resultsDiv.appendChild(ul);
+                } else {
+                    resultsDiv.innerHTML = "<p>No recommendations available at this time.</p>";
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching recommendations:", error);
+                document.getElementById("results").innerHTML =
+                    "<p>There was an error processing your request. Please try again later.</p>";
+            });
+    </script>
+</body>
